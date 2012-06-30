@@ -185,6 +185,6 @@ def ftp():
         sudo('chmod 0660 /etc/proftpd/proftpd.group')
         sudo('chmod 0660 /etc/proftpd/proftpd.conf')
         run('mkdir -p /home/%s/projects' % SSH_USER)
-        sudo('echo "123" | ftpasswd --name tester --home /home/%s/projects --uid 1002 --gid 1002 --file /etc/proftpd/proftpd.passwd --shell /sbin/nologin --DES --passwd --stdin' % SSH_USER)
+        sudo('echo "%s" | ftpasswd --name %s --home /home/%s/projects --uid 1002 --gid 1002 --file /etc/proftpd/proftpd.passwd --shell /sbin/nologin --DES --passwd --stdin' % (FTP_PASSWORD, FTP_LOGIN, SSH_USER))
         append('/etc/proftpd/proftpd.group', 'tester:*:1002:\n', use_sudo=True)
         sudo('/etc/init.d/proftpd restart')
