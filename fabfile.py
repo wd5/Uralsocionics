@@ -94,6 +94,7 @@ def production():
     local_settings()
     lighttpd()
     runit()
+    dump()
     migrate()
     restart()
 
@@ -142,8 +143,17 @@ def manage_py(command):
     virtualenv('cd %s && python manage.py %s' % (env.manage_dir, command))
 
 
+def dump():
+    with cd(env.directory):
+        TMP_FILE = run("date +/tmp/uralsocionics_backup_%Y%m%d_%H%M.sql.gz")
+        run("mysqldump -u %(DATABASE_USER)s -p%(DATABASE_PASSWORD)s -h %(DATABASE_HOST)s %(DATABASE_DB)s | gzip > " % globals() + TMP_FILE)
+        run("tools/yandex_narod.sh -l %(DUMP_ACCOUNT_NAME)s@yandex.ru -p %(DUMP_PASSWORD)s " % globals() + TMP_FILE)
+        run("rm %s" % TMP_FILE)
+
+
 def migrate():
     with settings(user=SSH_USER):
+        manage_py('syncdb')
         manage_py('migrate')
 
 
