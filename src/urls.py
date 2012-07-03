@@ -12,5 +12,5 @@ urlpatterns = patterns('',
 
     (r'^admin/', include(admin.site.urls)),
     (r'^subscribe/', include('django_subscribe.urls')),
-    (r'^', include('core.urls')),
+    (r'^', include('madera_site.urls')),
 )

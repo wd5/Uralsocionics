@@ -23,7 +23,7 @@ DATABASES = {
 
 LOGIN_REDIRECT_URL = '/'
 
-AUTH_PROFILE_MODULE = 'core.Profile'
+AUTH_PROFILE_MODULE = 'madera_site.Profile'
 
 PROJECT_PATH = os.path.dirname(__file__)
 data_images_path = './media/data/'
@@ -47,7 +47,7 @@ TEMPLATE_LOADERS = (
 )
 
 TEMPLATE_DIRS = (
-    PROJECT_PATH
+    os.path.join(PROJECT_PATH, 'templates'),
 )
 
 TEMPLATE_CONTEXT_PROCESSORS = (
@@ -75,7 +75,7 @@ INSTALLED_APPS = (
     'pytils',
     'tagging',
     'south',
-    'core',
+    'madera_site',
     'django_subscribe',
 )
 
