@@ -8,7 +8,7 @@ from fabric.contrib.files import exists, sed, append, upload_template, uncomment
 
 from fab_settings import *
 
-env.ami = 'ami-8f03ede6'
+env.ami = 'ami-82fa58eb'
 env.directory = '/home/%s/projects/uralsocionics' % SSH_USER
 env.manage_dir = env.directory + '/src'
 env.activate = 'source %s/ENV/bin/activate' % env.directory
