@@ -11,4 +11,4 @@ logging
 wsgiref
 pytils
 -e git+https://github.com/glader/django_subscribe.git#egg=django_subscribe
--e git+https://github.com/glader/madera_site.git#egg=madera_site
+-e git+https://github.com/glader/madera_site.git#egg=madera_site>=0.2
