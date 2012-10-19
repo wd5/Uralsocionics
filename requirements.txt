@@ -1,4 +1,4 @@
-Django==1.3.4
+Django==1.4.2
 Markdown
 MySQL-python
 PIL
@@ -11,4 +11,4 @@ logging
 wsgiref
 pytils
 -e git+https://github.com/glader/django_subscribe.git#egg=django_subscribe
--e git+https://github.com/glader/madera_site.git#egg=madera_site>=0.2
+-e git+https://github.com/glader/madera_site.git#egg=madera_site>=0.4

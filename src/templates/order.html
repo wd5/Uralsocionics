@@ -13,6 +13,7 @@
 	<br>
 
     <form action="/order" method="post">
+        {% csrf_token %}
         Я хочу заказать:<br>
         {{ form.order }}<br>
          Мои контакты (e-mail или телефон): {{ form.contacts }} <input value="Отправить заказ" type="submit">

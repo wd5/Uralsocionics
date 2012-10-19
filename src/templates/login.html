@@ -10,13 +10,13 @@
 
     <h3>Вход в систему</h3>
     <form method="post" action="">
-    {% csrf_token %}
+        {% csrf_token %}
 
-    <table>
-        {{ form }}
-    </table>
-    <input type="submit" value="Войти" />
-    <input type="hidden" name="next" value="{{ next }}" />
+        <table>
+            {{ form }}
+        </table>
+        <input type="submit" value="Войти" />
+        <input type="hidden" name="next" value="{{ next }}" />
     </form>
 
     <br>
