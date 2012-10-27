@@ -162,6 +162,7 @@ def migrate():
 def restart():
     with settings(user=SSH_USER):
         run('sudo sv restart uralsocionics')
+        run('chmod 777 /home/madera/projects/uralsocionics/fcgi.sock')
 
 
 def local_env():
