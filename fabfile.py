@@ -55,7 +55,7 @@ def create():
 def init():
     with settings(user='ubuntu'):
         sudo('apt-get update')
-        sudo('apt-get install -y mc lighttpd mysql-client git-core python-setuptools python-dev runit rrdtool sendmail memcached libjpeg62-dev')
+        sudo('apt-get install -y mc nginx mysql-client git-core python-setuptools python-dev runit rrdtool sendmail memcached libjpeg62-dev')
         sudo('apt-get build-dep -y python-mysqldb')
 
         if not exists('/home/%s' % SSH_USER):
@@ -69,14 +69,15 @@ def init():
             sudo('mkdir -p /var/log/projects/uralsocionics')
             sudo('chmod 777 /var/log/projects/uralsocionics')
 
-        if not exists('/etc/lighttpd/conf-available/10-modules.conf'):
-            put('tools/lighttpd/10-modules.conf', '/etc/lighttpd/conf-available/10-modules.conf', use_sudo=True)
-            sudo('ln -s /etc/lighttpd/conf-available/10-modules.conf /etc/lighttpd/conf-enabled/10-modules.conf', shell=False)
+        if not exists('/etc/nginx/listen'):
+            put('tools/nginx/listen', '/etc/nginx/listen', use_sudo=True)
+        if not exists('/etc/nginx/fastcgi_params_extended'):
+            put('tools/nginx/fastcgi_params_extended', '/etc/nginx/fastcgi_params_extended', use_sudo=True)
 
-        if not exists('/etc/lighttpd/conf-available/90-uralsocionics.conf'):
-            sudo('touch /etc/lighttpd/conf-available/90-uralsocionics.conf')
-        if not exists('/etc/lighttpd/conf-enabled/90-uralsocionics.conf'):
-            sudo('ln -s /etc/lighttpd/conf-available/90-uralsocionics.conf /etc/lighttpd/conf-enabled/90-uralsocionics.conf', shell=False)
+        if not exists('/etc/nginx/sites-available/90-uralsocionics.conf'):
+            sudo('touch /etc/nginx/sites-available/90-uralsocionics.conf')
+        if not exists('/etc/nginx/sites-enabled/90-uralsocionics.conf'):
+            sudo('ln -s /etc/nginx/sites-available/90-uralsocionics.conf /etc/nginx/sites-enabled/90-uralsocionics.conf', shell=False)
 
         if not exists('/etc/sv/uralsocionics'):
             sudo('mkdir -p /etc/sv/uralsocionics/supervise')
@@ -92,7 +93,7 @@ def production():
     upload()
     environment()
     local_settings()
-    lighttpd()
+    nginx()
     runit()
     dump()
     migrate()
@@ -128,10 +129,10 @@ def local_settings():
             )
 
 
-def lighttpd():
+def nginx():
     with settings(user='ubuntu'):
-        sudo('cp %(directory)s/tools/lighttpd/90-uralsocionics.conf /etc/lighttpd/conf-available/90-uralsocionics.conf' % env, shell=False)
-        #sudo('/etc/init.d/lighttpd restart')
+        sudo('cp %(directory)s/tools/nginx/90-uralsocionics.conf /etc/nginx/sites-available/90-uralsocionics.conf' % env, shell=False)
+        #sudo('/etc/init.d/nginx restart')
 
 
 def runit():
