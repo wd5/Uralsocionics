@@ -10,5 +10,6 @@ flup
 logging
 wsgiref
 pytils
+easywebdav
 -e git+https://github.com/glader/django_subscribe.git#egg=django_subscribe
 -e git+https://github.com/glader/madera_site.git#egg=madera_site>=0.4
